@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | MelakaExplorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --melaka-light-red: #ff4d4d;
+            --melaka-gold: #D4AF37;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #F2BB66;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        /* IMS561 STANDARDS: Arial 11pt, Justified */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            text-align: justify;
+            line-height: 1.5;
+            padding-top: 36px;
+            background-color: #F4DF95;
+            overflow-x: hidden;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background: linear-gradient(to right, var(--melaka-light-red), var(--melaka-gold));
+            color: white;
+            padding: 8px 5%;
+            font-size: 10pt;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: var(--white);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 36px;
+            z-index: 1000;
+            height: 70px;
+            border-bottom: 3px solid var(--melaka-gold);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--melaka-light-red); text-decoration: none; }
+        .logo span { color: var(--melaka-gold); }
+
+        .nav-links { list-style: none; display: flex; gap: 5px; margin: 0; height: 100%; }
+        .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 9.5pt; text-transform: uppercase; padding: 0 15px; }
+        .nav-links a:hover { color: var(--melaka-light-red); }
+
+        /* Dropdown Logic */
+        .dropdown { display: none; position: absolute; top: 70px; left: 0; background: var(--white); min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--melaka-gold); list-style: none; padding: 10px 0; z-index: 3000; }
+        .nav-links li:hover .dropdown { display: block; }
+        .dropdown li a { padding: 10px 20px; display: block; text-transform: capitalize; font-weight: 400; text-align: left; }
+
+        /* HERO SLIDER SECTION - UPDATED FOR NO CROP & ARROWS */
+        .slider-container {
+            width: 100%;
+            aspect-ratio: 16 / 7; /* Adjusts height based on width to fit image size */
+            overflow: hidden;
+            position: relative;
+            border-bottom: 5px solid var(--melaka-gold);
+        }
+
+        .slider {
+            display: flex;
+            width: 300%; 
+            height: 100%;
+            /* Animation removed from CSS and moved to JS for better control with buttons */
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .slide {
+            width: 33.33%;
+            height: 100%;
+            background-size: 100% 100%; /* Stretches to fill container exactly */
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .slide:nth-child(1) { background-image: url('img/slider1.jpg'); }
+        .slide:nth-child(2) { background-image: url('img/slider2.jpg'); }
+        .slide:nth-child(3) { background-image: url('img/slider3.jpg'); }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: 50px;
+            left: 5%;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 20px;
+            border-left: 5px solid var(--melaka-gold);
+            max-width: 500px;
+        }
+
+        /* SLIDER ARROWS */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.3);
+            color: yellow;
+            padding: 15px;
+            font-size: 24px;
+            text-decoration: none;
+            z-index: 10;
+            transition: 0.3s;
+            border-radius: 50%;
+            margin: 0 20px;
+            cursor: pointer;
+        }
+        .slider-arrow:hover { background: var(--melaka-light-red); }
+        .arrow-left { left: 0; }
+        .arrow-right { right: 0; }
+
+        /* ENHANCED WELCOME SECTION */
+        .welcome-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 60px 40px;
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--melaka-light-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: var(--melaka-gold);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .welcome-section h1 {
+            color: var(--text-dark);
+            font-size: 32pt;
+            font-weight: 800;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .welcome-section h1::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--melaka-light-red);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 13pt;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .welcome-icon {
+            font-size: 40px;
+            color: var(--melaka-gold);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* GENERAL SECTIONS */
+        .section-padding { padding: 60px 10%; }
+        .section-title { font-size: 28pt; font-weight: 800; margin-bottom: 10px; color: var(--text-dark); text-align: center; }
+        .section-subtitle { color: #777; margin-bottom: 40px; text-align: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+        /* CARDS */
+        .card { 
+            background: white; padding: 30px; border-radius: 15px; box-shadow: var(--card-shadow); 
+            transition: 0.3s; position: relative; border: 2px solid transparent; box-sizing: border-box;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card-icon { width: 60px; height: 60px; background: #fff1f1; color: var(--melaka-light-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 24px; }
+        .card h3 { color: var(--text-dark); margin-bottom: 15px; text-align: center; }
+
+        .dest-card { overflow: hidden; padding: 0; }
+        .dest-img { width: 100%; height: 200px; object-fit: cover; }
+        .dest-content { padding: 20px; position: relative; }
+        .rating-badge { position: absolute; right: 20px; top: 20px; background: var(--melaka-gold); color: white; padding: 5px 10px; border-radius: 20px; font-size: 10pt; font-weight: bold; }
+
+        /* REVIEWS */
+        .review-card { text-align: left; border: 2px solid var(--melaka-light-red) !important; }
+        .stars { color: var(--melaka-gold); margin-bottom: 15px; }
+        .user-info { display: flex; align-items: center; gap: 15px; margin-top: 20px; }
+        .user-info img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+
+        /* FOOTER */
+        .social-footer { 
+            background: #333; color: white; padding: 50px 10%; display: flex; flex-wrap: wrap; 
+            justify-content: flex-start; gap: 80px; border-top: 5px solid var(--melaka-gold); 
+        }
+        .footer-box { flex: 0 1 auto; min-width: 250px; }
+        .footer-box h4 { border-bottom: 2px solid var(--melaka-gold); padding-bottom: 5px; color: var(--melaka-gold); margin-bottom: 20px; display: inline-block; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-icons a { background: white; color: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 20px; transition: 0.3s; }
+        .social-icons a:hover { background: var(--melaka-gold); color: white; }
+
+        .copyright { background: #1a1a1a; color: #777; text-align: center; padding: 20px; font-size: 9pt; }
+        
+        /* WHATSAPP FLOAT */
+        .wa-float { 
+            position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 5000; font-size: 30px; box-shadow: 2px 5px 15px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .wa-float:hover { transform: scale(1.1); background-color: #128c7e; }
+
+        @media (max-width: 768px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .slider-container { aspect-ratio: 4 / 3; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/60138661522?text=Hi,%20i%20want%20to%20know%20more!" class="wa-float" target="_blank">
+        <i class="ri-whatsapp-line"></i>
+    </a>
+
+    <div class="top-bar">WELCOME TO MELAKA EXPLORER COMMUNITY</div>
+
+    <nav>
+        <a href="index.html" class="logo">Melaka<span>Explorer</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li>
+                <a href="#">Culture & Heritage <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="heritage.html">Heritage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Lifestyle <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="nature.html">Nature</a></li>
+                    <li><a href="food.html">Food</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <div class="slider-container">
+        <div class="slider-arrow arrow-left"><i class="ri-arrow-left-s-line"></i></div>
+        <div class="slider-arrow arrow-right"><i class="ri-arrow-right-s-line"></i></div>
+
+        <div class="slider">
+            <div class="slide"><div class="slide-overlay"><h2>Melaka Botanical Garden</h2><p>Peaceful getaway filled with tall trees.</p></div></div>
+            <div class="slide"><div class="slide-overlay"><h2>Zoo Melaka</h2><p>Great spot for learning about wildlife.</p></div></div>
+            <div class="slide"><div class="slide-overlay"><h2>Klebang Beach</h2><p>Famous for its white sand dunes.</p></div></div>
+        </div>
+    </div>
+
+    <div class="welcome-section">
+        <i class="ri-ancient-gate-line welcome-icon"></i>
+        <h1>Discover the Soul of Melaka</h1>
+        <p>
+            Welcome to the MelakaExplorer local community website. This platform serves as a 
+            comprehensive digital hub dedicated to showcasing the rich cultural tapestry and 
+            historic significance of Melaka. We invite you to explore our resources, connect 
+            with local stories, and discover the heritage that defines our historic city.
+        </p>
+    </div>
+
+    <section class="section-padding">
+        <h2 class="section-title">Melaka History Made Simple!</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon"><i class="ri-map-pin-line"></i></div>
+                <h3>Guided Heritage Trails</h3>
+                <p>From A Famosa to Jonker Street, every historic landmark is at your fingertips.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="ri-compass-3-line"></i></div>
+                <h3>Tailored Itineraries</h3>
+                <p>Personalized plans based on your interests, whether you love food or history.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="ri-lightbulb-line"></i></div>
+                <h3>Expert Local Insights</h3>
+                <p>Access stories and hidden gems shared by Melaka locals.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background: #f4f4f4;">
+        <h2 class="section-title">Popular Destinations</h2>
+        <div class="grid-3">
+            <div class="card dest-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Malacca_stadhuys1.jpg" class="dest-img" alt="Stadthuys">
+                <div class="dest-content">
+                    <span class="rating-badge"><i class="ri-star-fill"></i> 4.9</span>
+                    <h3>The Stadthuys</h3>
+                    <p>Bandar Hilir, Melaka</p>
+                </div>
+            </div>
+            <div class="card dest-card">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/43/21/a1/the-jonker-street-night.jpg?w=900&h=500&s=1" class="dest-img" alt="Jonker">
+                <div class="dest-content">
+                    <span class="rating-badge"><i class="ri-star-fill"></i> 4.8</span>
+                    <h3>Jonker Street Night Market</h3>
+                    <p>Jalan Hang Jebat, Melaka</p>
+                </div>
+            </div>
+            <div class="card dest-card">
+                <img src="https://image.kkday.com/v2/image/get/w_1900%2Cc_fit/s1.kkday.com/product_103696/20210827105154_XA3rW/jpg" class="dest-img" alt="River">
+                <div class="dest-content">
+                    <span class="rating-badge"><i class="ri-star-fill"></i> 4.7</span>
+                    <h3>Melaka River Cruise</h3>
+                    <p>Muara Sungai Melaka</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <h2 class="section-title">Loved By Our Community</h2>
+        <div class="grid-3">
+            <div class="card review-card">
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <p>"MelakaExplorer helped me find quiet spots in the Botanical Garden I never knew existed. Truly a great resource!"</p>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?u=1" alt="User">
+                    <div><strong>Miss Lee</strong><br><small>Local Resident</small></div>
+                </div>
+            </div>
+            <div class="card review-card">
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <p>"The food recommendations are spot on. I found the best Asam Pedas thanks to the community insights here."</p>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?u=2" alt="User">
+                    <div><strong>Ahmad Zaki</strong><br><small>Food Enthusiast</small></div>
+                </div>
+            </div>
+            <div class="card review-card">
+                <div class="stars"><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i><i class="ri-star-fill"></i></div>
+                <p>"As a student, the history section provided a new level of appreciation for the sites I studied. Highly recommended!"</p>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/150?u=3" alt="User">
+                    <div><strong>Sarah Wan</strong><br><small>Cultural Student</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-footer">
+        <div class="footer-box">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/share/19MT2P22HC/"><i class="ri-facebook-fill"></i></a>
+                <a href="https://www.instagram.com/melakaexplorer_community?igsh=MWw3b2RtbzVwYnlteg=="><i class="ri-instagram-line"></i></a>
+                <a href="https://x.com/MelakaExplorer"><i class="ri-twitter-x-fill"></i></a>
+            </div>
+            <p style="font-size: 9pt; margin-top: 15px; color: #bbb;">Stay connected with the cultural heart of Melaka.</p>
+        </div>
+        <div class="footer-box">
+            <h4>Quick Link</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="faq.html" style="color: white; text-decoration: none;">> FAQ</a></li>
+                <li><a href="contact.html" style="color: white; text-decoration: none;">> Contact Us</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="copyright">
+        <p>Recommended: Latest Chrome, Firefox, or Edge | Resolution: 1280x720 or higher</p>
+        <p class="last-updated">Last Updated: 13 January 2026</p>
+        <p>&copy; 2026 MelakaExplorer. Copyright. All rights reserved.</p>
+    </div>
+
+    <script>
+        const slider = document.querySelector('.slider');
+        const arrowLeft = document.querySelector('.arrow-left');
+        const arrowRight = document.querySelector('.arrow-right');
+        const slides = document.querySelectorAll('.slide');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        function updateSlider() {
+            const percentage = -(currentIndex * (100 / totalSlides));
+            slider.style.transform = `translateX(${percentage}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        // Click Events
+        arrowRight.addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        arrowLeft.addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+
+        // Auto Move logic
+        function startInterval() {
+            slideInterval = setInterval(nextSlide, 5000); // 5 seconds interval
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            startInterval();
+        }
+
+        // Initialize auto-slide on load
+        startInterval();
+    </script>
+
+</body>
+</html>

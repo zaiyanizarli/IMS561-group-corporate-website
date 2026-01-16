@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture | MelakaExplorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --melaka-light-red: #ff4d4d;
+            --melaka-gold: #D4AF37;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #fdfdfd;
+        }
+
+        /* IMS561 STANDARDS: Arial 11pt, Justified */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            text-align: justify;
+            line-height: 1.5;
+            padding-top: 36px;
+            background-color: var(--bg-light);
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background: linear-gradient(to right, var(--melaka-light-red), var(--melaka-gold));
+            color: white;
+            padding: 8px 5%;
+            font-size: 10pt;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: var(--white);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 36px;
+            z-index: 1000;
+            height: 70px;
+            border-bottom: 3px solid var(--melaka-gold);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--melaka-light-red); text-decoration: none; }
+        .logo span { color: var(--melaka-gold); }
+
+        .nav-links { list-style: none; display: flex; gap: 5px; margin: 0; height: 100%; }
+        .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 9.5pt; text-transform: uppercase; padding: 0 15px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--melaka-light-red); }
+
+        .dropdown { display: none; position: absolute; top: 70px; left: 0; background: var(--white); min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--melaka-gold); list-style: none; padding: 10px 0; z-index: 3000; }
+        .nav-links li:hover .dropdown { display: block; }
+        .dropdown li a { padding: 10px 20px; display: block; text-transform: capitalize; font-weight: 400; text-align: left; }
+
+        /* CULTURE HEADER */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('http://img.jakpost.net/c/2018/07/25/2018_07_25_49811_1532490937._medium.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 5px solid var(--melaka-gold);
+        }
+
+        /* CONTENT SECTION */
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        
+        .section-title {
+            color: var(--melaka-light-red);
+            border-bottom: 2px solid var(--melaka-gold);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-size: 18pt;
+        }
+
+        .culture-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .culture-text { flex: 1; min-width: 300px; }
+        .culture-image { 
+            flex: 1; 
+            min-width: 300px; 
+            height: 350px; 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 8px; 
+            border: 4px solid var(--melaka-gold);
+        }
+
+        .highlight-box {
+            background: #fff9e6;
+            padding: 30px;
+            border-left: 8px solid var(--melaka-gold);
+            margin: 40px 0;
+        }
+
+        /* WHATSAPP FLOAT */
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #25d366; 
+            color: #FFF; 
+            border-radius: 50px; 
+            width: 60px; 
+            height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            z-index: 5000; 
+            font-size: 30px; 
+            transition: all 0.3s ease;
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.2);
+        }
+        .wa-float:hover { 
+            transform: scale(1.1); 
+            background-color: #128c7e;
+        }
+
+        /* FOOTER */
+        .social-footer { background: #333; color: white; padding: 50px 5%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; border-top: 5px solid var(--melaka-gold); }
+        .footer-box { flex: 1; min-width: 250px; }
+        .footer-box h4 { border-bottom: 2px solid var(--melaka-gold); padding-bottom: 5px; color: var(--melaka-gold); margin-bottom: 20px; display: inline-block; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-icons a { background: white; color: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 20px; transition: 0.3s; }
+        .social-icons a:hover { background: var(--melaka-gold); color: white; }
+
+        .copyright { background: #1a1a1a; color: #777; text-align: center; padding: 20px; font-size: 9pt; }
+
+        @media (max-width: 768px) { 
+            .nav-links { display: none; }
+            .culture-image { height: 250px; }
+            .wa-float { width: 50px; height: 50px; font-size: 25px; bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/60138661522?text=Hi!%2i%20want%20to%20to%20know%20more!" class="wa-float" target="_blank">
+        <i class="ri-whatsapp-line"></i>
+    </a>
+
+    <div class="top-bar">EXPLORE THE CULTURAL TAPESTRY OF MELAKA</div>
+
+    <nav>
+        <a href="index.html" class="logo">Melaka<span>Explorer</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li>
+                <a href="#">Culture & Heritage <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="heritage.html">Heritage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Lifestyle <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="nature.html">Nature</a></li>
+                    <li><a href="food.html">Food</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1 style="font-size: 32pt; margin: 0;">Culture & Traditions</h1>
+        <p style="font-size: 14pt;">A living museum of diverse ethnic harmonies.</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">The Peranakan Legacy</h2>
+        <div class="culture-info">
+            <div class="culture-text">
+                <p>
+                    Melaka is the birthplace of the unique Baba-Nyonya or Peranakan culture. This culture emerged from the intermarriage between Chinese immigrants and local Malays, resulting in a fascinating blend of traditions. From the intricate embroidery of the <i>Kebaya</i> to the distinct flavors of Nyonya cuisine, the Peranakan legacy remains one of Melaka's most iconic cultural pillars.
+                </p>
+                <p>
+                    Visitors can witness this heritage in the preserved townhouses of Millionaire's Row, where traditional architecture meets ornate interior carvings and imported European tiles, symbolizing the wealth and status of the early Peranakan community.
+                </p>
+            </div>
+            <div class="culture-image" style="background-image: url('https://www.southeastasianarchaeology.com/wp-content/uploads/2024/07/c1_2832137.jpg');"></div>
+        </div>
+
+        <div class="highlight-box">
+            <h3 style="color: var(--melaka-light-red); margin-top: 0;">The Street of Harmony</h3>
+            <p>
+                Melaka's Jalan Tukang Emas is famously known as the "Street of Harmony." Here, a Mosque (Kampung Kling), a Hindu Temple (Sri Poyatha Moorthi), and a Chinese Temple (Cheng Hoon Teng) stand within meters of each other. This peaceful coexistence of different faiths has been the cornerstone of Melaka's social fabric for centuries, representing the true spirit of Malaysian multiculturalism.
+            </p>
+        </div>
+
+        <h2 class="section-title">Traditional Arts & Performance</h2>
+        <div class="culture-info" style="flex-direction: row-reverse;">
+            <div class="culture-text">
+                <p>
+                    The cultural landscape is further enriched by traditional performances such as the <i>Dondang Sayang</i>, a rhythmic Malay poetic art form often performed during festivals. It is a dialogue in song, usually accompanied by violins, drums, and gongs, showcasing the wit and lyrical skill of the performers.
+                </p>
+                <p>
+                    Other notable traditions include the Portuguese <i>Brumado</i> dance found in the Portuguese Settlement and the colorful dragon dances seen during the Lunar New Year celebrations in Jonker Street.
+                </p>
+            </div>
+            <div class="culture-image" style="background-image: url('img/dondangsayang.jpg');"></div>
+        </div>
+    </div>
+
+    <section class="social-footer">
+        <div class="footer-box">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/share/19MT2P22HC/"><i class="ri-facebook-fill"></i></a>
+                <a href="https://www.instagram.com/melakaexplorer_community?igsh=MWw3b2RtbzVwYnlteg=="><i class="ri-instagram-line"></i></a>
+                <a href="https://x.com/MelakaExplorer"><i class="ri-twitter-x-fill"></i></a>
+            </div>
+            <p style="font-size: 9pt; margin-top: 15px; color: #bbb;">Stay connected with the cultural heart of Melaka.</p>
+        </div>
+
+        <div class="footer-box">
+            <h4>Quick Link</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="faq.html" style="color: white; text-decoration: none;">> FAQ</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="copyright">
+            <p>
+                 Recommended: Latest Chrome, Firefox, or Edge |
+                 Resolution: 1280x720 or higher
+            </p>
+            <p class="last-updated">
+                 Last Updated: 13 January 2026
+            </p>
+        <p>
+        <p>&copy;  2026 MelakaExplorer. Copyright. All rights reserved.</p>
+    </p>
+
+</body>
+</html>
+
+

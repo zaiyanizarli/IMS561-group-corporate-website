@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | MelakaExplorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --melaka-light-red: #ff4d4d;
+            --melaka-gold: #D4AF37;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #fdfdfd;
+        }
+
+        /* IMS561 STANDARDS: Arial 11pt, Justified */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            text-align: justify;
+            line-height: 1.5;
+            padding-top: 36px;
+            background-color: var(--bg-light);
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background: linear-gradient(to right, var(--melaka-light-red), var(--melaka-gold));
+            color: white;
+            padding: 8px 5%;
+            font-size: 10pt;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: var(--white);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 36px;
+            z-index: 1000;
+            height: 70px;
+            border-bottom: 3px solid var(--melaka-gold);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--melaka-light-red); text-decoration: none; }
+        .logo span { color: var(--melaka-gold); }
+
+        .nav-links { list-style: none; display: flex; gap: 5px; margin: 0; height: 100%; }
+        .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 9.5pt; text-transform: uppercase; padding: 0 15px; }
+        .nav-links a:hover { color: var(--melaka-light-red); }
+
+        .dropdown { display: none; position: absolute; top: 70px; left: 0; background: var(--white); min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--melaka-gold); list-style: none; padding: 10px 0; z-index: 3000; }
+        .nav-links li:hover .dropdown { display: block; }
+        .dropdown li a { padding: 10px 20px; display: block; text-transform: capitalize; font-weight: 400; text-align: left; }
+
+        /* FAQ HEADER */
+        .faq-header {
+            background: #f4f4f4;
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* SEARCH BOX */
+        .search-box {
+            max-width: 500px;
+            width: 90%; 
+            margin: 20px auto;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 45px 12px 20px;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            font-size: 11pt;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--melaka-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .search-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        /* FAQ CONTENT */
+        .container { max-width: 900px; margin: 50px auto; padding: 0 20px; }
+        
+        .faq-category { margin-bottom: 40px; }
+        .faq-category h2 { 
+            color: var(--melaka-light-red); 
+            border-left: 5px solid var(--melaka-gold); 
+            padding-left: 15px; 
+            margin-bottom: 20px;
+            font-size: 16pt;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 10px 0;
+            color: var(--text-dark);
+            font-size: 12pt;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .faq-item h3 i { color: var(--melaka-gold); }
+        .faq-item p { margin: 0; color: #555; font-size: 10.5pt; }
+
+        /* FOOTER */
+        .social-footer { background: #333; color: white; padding: 50px 5%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; border-top: 5px solid var(--melaka-gold); }
+        .footer-box { flex: 1; min-width: 250px; }
+        .footer-box h4 { border-bottom: 2px solid var(--melaka-gold); padding-bottom: 5px; color: var(--melaka-gold); margin-bottom: 20px; display: inline-block; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-icons a { background: white; color: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 20px; }
+        .copyright { background: #1a1a1a; color: #777; text-align: center; padding: 20px; font-size: 9pt; }
+        
+        /* WHATSAPP BUTTON STYLING */
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #25d366; 
+            color: #FFF; 
+            border-radius: 50px; 
+            width: 60px; 
+            height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            z-index: 5000; 
+            font-size: 30px; 
+            transition: all 0.3s ease; 
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.2);
+        }
+        .wa-float:hover { 
+            transform: scale(1.1); 
+            background-color: #128c7e;
+        }
+
+        @media (max-width: 768px) { 
+            .nav-links { display: none; }
+            .faq-header { padding: 40px 15px; }
+            .wa-float { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/60138661522?text=Hi,%20i%20want%20to%20know%20more!" 
+       class="wa-float" 
+       target="_blank">
+        <i class="ri-whatsapp-line"></i>
+    </a>
+
+    <div class="top-bar">FREQUENTLY ASKED QUESTIONS | MELAKA EXPLORER</div>
+
+    <nav>
+        <a href="index.html" class="logo">Melaka<span>Explorer</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li>
+                <a href="#">Culture & Heritage <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="heritage.html">Heritage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Lifestyle <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="nature.html">Nature</a></li>
+                    <li><a href="food.html">Food</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <header class="faq-header">
+        <h1 style="margin:0; color: var(--text-dark);">How can we help?</h1>
+        <p>Find answers to common questions about visiting Melaka in 2026.</p>
+        <div class="search-box">
+            <input type="text" id="faqSearch" placeholder="Search for answers...">
+            <i class="ri-search-line"></i>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="faq-category">
+            <h2>Travel & Logistics</h2>
+            <div class="faq-item">
+                <h3><i class="ri-question-line"></i> What is the best time to visit Melaka?</h3>
+                <p>While Melaka is a year-round destination, the best time is during the dry season between April and October.</p>
+            </div>
+            <div class="faq-item">
+                <h3><i class="ri-question-line"></i> Is there a tourist tax in Melaka?</h3>
+                <p>Yes, Melaka implements a Heritage Tax (Caj Warisan) of RM2 per room per night for hotels.</p>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>Food & Culture</h2>
+            <div class="faq-item">
+                <h3><i class="ri-question-line"></i> Are most food outlets Halal?</h3>
+                <p>Melaka offers a wide variety of Halal food. For Nyonya cuisine, many restaurants are Pork-Free, but it's best to check for the certificate.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; background: #fffdf5; padding: 30px; border-radius: 10px; border: 1px dashed var(--melaka-gold);">
+            <h3>Still have questions?</h3>
+            <p>Our support team is available via WhatsApp or our Contact Form.</p>
+            <a href="contact.html" style="color: var(--melaka-light-red); font-weight: bold; text-decoration: none;">Go to Contact Page &rarr;</a>
+        </div>
+
+    </div>
+
+    <section class="social-footer">
+        <div class="footer-box">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                 <a href="https://www.facebook.com/share/19MT2P22HC/"><i class="ri-facebook-fill"></i></a>
+                <a href="https://www.instagram.com/melakaexplorer_community?igsh=MWw3b2RtbzVwYnlteg=="><i class="ri-instagram-line"></i></a>
+                <a href="https://x.com/MelakaExplorer"><i class="ri-twitter-x-fill"></i></a>
+            </div>
+            <p style="font-size: 9pt; margin-top: 15px; color: #bbb;">Stay connected with the cultural heart of Melaka.</p>
+        </div>
+        <div class="footer-box">
+            <h4>Quick Link</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="faq.html" style="color: white; text-decoration: none;">> FAQ</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="copyright">
+            <p>
+                 Recommended: Latest Chrome, Firefox, or Edge |
+                 Resolution: 1280x720 or higher
+            </p>
+            <p class="last-updated">
+                 Last Updated: 13 January 2026
+            </p>
+        <p>
+        <p>&copy;  2026 MelakaExplorer. Copyright. All rights reserved.</p>
+    </p>
+
+    <script>
+        const searchInput = document.getElementById('faqSearch');
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        searchInput.addEventListener('keyup', function() {
+            const filter = searchInput.value.toLowerCase();
+            
+            faqItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+

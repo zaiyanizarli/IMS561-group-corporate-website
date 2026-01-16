@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment | MelakaExplorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --melaka-light-red: #ff4d4d;
+            --melaka-gold: #D4AF37;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #fdfdfd;
+        }
+
+        /* IMS561 STANDARDS: Arial 11pt, Justified */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            text-align: justify;
+            line-height: 1.5;
+            padding-top: 36px;
+            background-color: var(--bg-light);
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background: linear-gradient(to right, var(--melaka-light-red), var(--melaka-gold));
+            color: white;
+            padding: 8px 5%;
+            font-size: 10pt;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: var(--white);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 36px;
+            z-index: 1000;
+            height: 70px;
+            border-bottom: 3px solid var(--melaka-gold);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--melaka-light-red); text-decoration: none; }
+        .logo span { color: var(--melaka-gold); }
+
+        .nav-links { list-style: none; display: flex; gap: 5px; margin: 0; height: 100%; }
+        .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 9.5pt; text-transform: uppercase; padding: 0 15px; }
+        .nav-links a:hover { color: var(--melaka-light-red); }
+
+        .dropdown { display: none; position: absolute; top: 70px; left: 0; background: var(--white); min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--melaka-gold); list-style: none; padding: 10px 0; z-index: 3000; }
+        .nav-links li:hover .dropdown { display: block; }
+        .dropdown li a { padding: 10px 20px; display: block; text-transform: capitalize; font-weight: 400; text-align: left; }
+
+        /* HEADER */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://assets.bharian.com.my/images/articles/encoree2.transformed.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 5px solid var(--melaka-gold);
+        }
+
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        
+        .section-title {
+            color: var(--melaka-light-red);
+            border-bottom: 2px solid var(--melaka-gold);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-size: 18pt;
+        }
+
+        /* VIDEO STYLING FIX */
+        .video-container { 
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto; 
+            border: 5px solid var(--melaka-gold);
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        video { 
+            width: 100%; 
+            display: block;
+        }
+
+        .step-container { margin: 40px 0; }
+        .step { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 20px; background: #fff; padding: 20px; border-left: 5px solid var(--melaka-gold); box-shadow: 2px 2px 5px rgba(0,0,0,0.05); }
+        .step-num { background: var(--melaka-light-red); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+
+        .network-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .network-link { background: #eee; padding: 15px; text-align: center; text-decoration: none; color: #333; font-weight: bold; border-radius: 5px; transition: 0.3s; border: 1px solid #ddd; }
+        .network-link:hover { background: var(--melaka-gold); color: white; }
+
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; background: white; }
+        table, th, td { border: 1px solid #ddd; }
+        th { background-color: var(--melaka-light-red); color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+
+        .btn-cta { display: inline-block; background: var(--melaka-light-red); color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; margin-top: 10px; }
+        .btn-cta:hover { background: #333; }
+
+        /* FOOTER */
+        .social-footer { background: #333; color: white; padding: 50px 5%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; border-top: 5px solid var(--melaka-gold); }
+        .footer-box { flex: 1; min-width: 250px; }
+        .footer-box h4 { border-bottom: 2px solid var(--melaka-gold); padding-bottom: 5px; color: var(--melaka-gold); margin-bottom: 20px; display: inline-block; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-icons a { background: white; color: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 20px; transition: 0.3s; }
+        .social-icons a:hover { background: var(--melaka-gold); color: white; }
+        .copyright { background: #1a1a1a; color: #777; text-align: center; padding: 20px; font-size: 9pt; }
+        
+        /* UPDATED WHATSAPP FLOAT */
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #25d366; 
+            color: #FFF; 
+            border-radius: 50px; 
+            width: 60px; 
+            height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            z-index: 5000; 
+            font-size: 30px; 
+            transition: all 0.3s ease; 
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.2);
+        }
+        .wa-float:hover { 
+            transform: scale(1.1); 
+            background-color: #128c7e;
+        }
+
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .wa-float { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/60138661522?text=Hi,%20i%20want%20to%20know%20more!" 
+       class="wa-float" 
+       target="_blank">
+        <i class="ri-whatsapp-line"></i>
+    </a>
+
+    <div class="top-bar">MELAKA ENTERTAINMENT & NIGHTLIFE HUB</div>
+
+    <nav>
+        <a href="index.html" class="logo">Melaka<span>Explorer</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li>
+                <a href="#">Culture & Heritage <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="heritage.html">Heritage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Lifestyle <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="nature.html">Nature</a></li>
+                    <li><a href="food.html">Food</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1 style="font-size: 32pt; margin: 0;">Unforgettable Fun</h1>
+        <p style="font-size: 14pt;">From river cruises to cultural theaters, the city never sleeps.</p>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="section-title">Explore by Category</h2>
+        <div class="network-grid">
+            <a href="https://ticket.melakarivercruise.my/" class="network-link"><i class="ri-ship-line"></i> River Cruises</a>
+            <a href="https://www.melakawonderland.com.my/" class="network-link"><i class="ri-mickey-line"></i> Theme Parks</a>
+            <a href="https://encore-melaka.com/" class="network-link"><i class="ri-music-2-line"></i> Cultural Shows</a>
+            <a href="https://www.bondingexplorers.com/jonker-street-night-market-complete-guide/" class="network-link"><i class="ri-drinks-line"></i> Night Markets</a>
+        </div>
+
+        <hr style="margin: 50px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <h2 class="section-title">The Perfect Night Out</h2>
+        <div class="step-container">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div><strong>Sunset River Cruise (6:30 PM)</strong><br>Start with a boat ride as the city lights up.</div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div><strong>Encore Melaka Show (8:00 PM)</strong><br>Spectacular 360-degree theater performance.</div>
+            </div>
+        </div>
+
+        <h2 id="shows" class="section-title">Experience the Magic</h2>
+        <p>Watch our exclusive feature on Melaka's entertainment scene:</p>
+        <div class="video-container">
+            <video controls>
+                <source src="video/entertainment.mp4" type="video/mp4">
+                Your browser does not support the video tag. Please check if the file exists in the video folder.
+            </video>
+        </div>
+
+        <h2 id="river" class="section-title">Attraction Ticketing 2026</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Attraction</th>
+                    <th>Adult (MYR)</th>
+                    <th>Operating Hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Melaka River Cruise</td>
+                    <td>RM 30.00</td>
+                    <td>9:00 AM - 11:30 PM</td>
+                </tr>
+                <tr>
+                    <td>Encore Melaka</td>
+                    <td>RM 148.00</td>
+                    <td>Based on Showtimes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="https://www.ticket2u.com.my/" class="btn-cta">BOOK YOUR TICKETS NOW</a>
+        </div>
+    </div>
+
+    <section class="social-footer">
+        <div class="footer-box">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                 <a href="https://www.facebook.com/share/19MT2P22HC/"><i class="ri-facebook-fill"></i></a>
+                <a href="https://www.instagram.com/melakaexplorer_community?igsh=MWw3b2RtbzVwYnlteg=="><i class="ri-instagram-line"></i></a>
+                <a href="https://x.com/MelakaExplorer"><i class="ri-twitter-x-fill"></i></a>
+            </div>
+            <p style="font-size: 9pt; margin-top: 15px; color: #bbb;">Stay connected with the cultural heart of Melaka.</p>
+        </div>
+        <div class="footer-box">
+            <h4>Quick Link</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="faq.html" style="color: white; text-decoration: none;">> FAQ</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="copyright">
+            <p>
+                 Recommended: Latest Chrome, Firefox, or Edge |
+                 Resolution: 1280x720 or higher
+            </p>
+            <p class="last-updated">
+                 Last Updated: 13 January 2026
+            </p>
+        <p>
+        <p>&copy;  2026 MelakaExplorer. Copyright. All rights reserved.</p>
+    </p>
+
+</body>
+</html>
+
+

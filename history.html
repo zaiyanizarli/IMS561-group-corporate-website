@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History | MelakaExplorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        :root {
+            --melaka-light-red: #ff4d4d;
+            --melaka-gold: #D4AF37;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #fdfdfd;
+        }
+
+        /* IMS561 STANDARDS: Arial 11pt, Justified */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            text-align: justify;
+            line-height: 1.5;
+            padding-top: 36px;
+            background-color: var(--bg-light);
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background: linear-gradient(to right, var(--melaka-light-red), var(--melaka-gold));
+            color: white;
+            padding: 8px 5%;
+            font-size: 10pt;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2000;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
+
+        /* NAVIGATION */
+        nav {
+            background: var(--white);
+            padding: 0 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 36px;
+            z-index: 1000;
+            height: 70px;
+            border-bottom: 3px solid var(--melaka-gold);
+        }
+
+        .logo { font-size: 24px; font-weight: 800; color: var(--melaka-light-red); text-decoration: none; }
+        .logo span { color: var(--melaka-gold); }
+
+        .nav-links { list-style: none; display: flex; gap: 5px; margin: 0; height: 100%; }
+        .nav-links > li { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 9.5pt; text-transform: uppercase; padding: 0 15px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--melaka-light-red); }
+
+        .dropdown { display: none; position: absolute; top: 70px; left: 0; background: var(--white); min-width: 200px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-top: 3px solid var(--melaka-gold); list-style: none; padding: 10px 0; z-index: 3000; }
+        .nav-links li:hover .dropdown { display: block; }
+        .dropdown li a { padding: 10px 20px; display: block; text-transform: capitalize; font-weight: 400; text-align: left; }
+
+        /* HISTORY HEADER */
+        .page-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://alaxa.co/wp-content/uploads/2025/03/melaka2-640x336-1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            border-bottom: 5px solid var(--melaka-gold);
+        }
+
+        /* CONTENT SECTION */
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        
+        .section-title {
+            color: var(--melaka-light-red);
+            border-bottom: 2px solid var(--melaka-gold);
+            display: inline-block;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-size: 18pt;
+        }
+
+        /* TIMELINE STYLE */
+        .timeline {
+            position: relative;
+            margin: 40px 0;
+            padding-left: 40px;
+            border-left: 3px solid var(--melaka-gold);
+        }
+        .timeline-item { margin-bottom: 40px; position: relative; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -49px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: var(--melaka-light-red);
+            border: 3px solid var(--white);
+            border-radius: 50%;
+        }
+        .timeline-year { font-weight: 800; color: var(--melaka-gold); font-size: 14pt; display: block; margin-bottom: 8px; }
+
+        .history-content {
+            background: #fff;
+            padding: 30px;
+            border: 1px solid #eee;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        /* WHATSAPP FLOAT */
+        .wa-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #25d366; 
+            color: #FFF; 
+            border-radius: 50px; 
+            width: 60px; 
+            height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-decoration: none; 
+            z-index: 5000; 
+            font-size: 30px; 
+            transition: all 0.3s ease;
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.2);
+        }
+        .wa-float:hover { 
+            transform: scale(1.1); 
+            background-color: #128c7e;
+        }
+
+        /* FOOTER */
+        .social-footer { background: #333; color: white; padding: 50px 5%; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; border-top: 5px solid var(--melaka-gold); }
+        .footer-box { flex: 1; min-width: 250px; }
+        .footer-box h4 { border-bottom: 2px solid var(--melaka-gold); padding-bottom: 5px; color: var(--melaka-gold); margin-bottom: 20px; display: inline-block; }
+        .social-icons { display: flex; gap: 12px; }
+        .social-icons a { background: white; color: #333; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 20px; transition: 0.3s; }
+        .social-icons a:hover { background: var(--melaka-gold); color: white; }
+
+        .copyright { background: #1a1a1a; color: #777; text-align: center; padding: 20px; font-size: 9pt; }
+
+        @media (max-width: 768px) { 
+            .nav-links { display: none; }
+            .wa-float { width: 50px; height: 50px; font-size: 25px; bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/60138661522?text=Hi,%20i%20want%20to%20know%20more!" class="wa-float" target="_blank">
+        <i class="ri-whatsapp-line"></i>
+    </a>
+
+    <div class="top-bar">JOURNEY THROUGH 600 YEARS OF HISTORY</div>
+
+    <nav>
+        <a href="index.html" class="logo">Melaka<span>Explorer</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li>
+                <a href="#">Culture & Heritage <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="culture.html">Culture</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="heritage.html">Heritage</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Lifestyle <i class="ri-arrow-down-s-line"></i></a>
+                <ul class="dropdown">
+                    <li><a href="nature.html">Nature</a></li>
+                    <li><a href="food.html">Food</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                </ul>
+            </li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <h1 style="font-size: 32pt; margin: 0;">The Chronicles of Melaka</h1>
+        <p style="font-size: 14pt;">From a humble fishing village to a UNESCO World Heritage Site.</p>
+    </header>
+
+    <div class="container">
+        
+        <h2 class="section-title">Timeline of a Kingdom</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="timeline-year">1400 – The Founding</span>
+                <p>Parameswara, a Prince from Palembang, founded Melaka after witnessing a brave mouse deer kick a hunting dog while resting under a Melaka tree. He named the city after the tree, and it soon became a strategic trading port for merchants from China, India, and the Arab world.</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-year">1511 – Portuguese Era</span>
+                <p>Alfonso de Albuquerque led the Portuguese conquest of Melaka. They built the famous fortress, A'Famosa, to consolidate their power over the spice trade route. This era introduced Catholicism and the Portuguese-Eurasian community to the region.</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-year">1641 – Dutch Rule</span>
+                <p>With the help of the Johor Sultanate, the Dutch defeated the Portuguese. Their 183-year reign left behind the iconic red Stadthuys and Christ Church buildings. Melaka became an administrative center for the Dutch East India Company (VOC).</p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-year">1824 – British Influence</span>
+                <p>The Anglo-Dutch Treaty of 1824 saw Melaka ceded to the British in exchange for Bencoolen (Sumatra). Melaka became part of the Straits Settlements alongside Penang and Singapore, marking the beginning of the British colonial era.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">The Golden Age of Trade</h2>
+        <div class="history-content">
+            <p>
+                During the 15th century, Melaka was the center of the world's spice trade. It was known as the "Emporium of the East." Historical records suggest that at its peak, over 80 languages were spoken in the port of Melaka. The population was a diverse mix of Malays, Chinese, Indians, and Peranakans.
+            </p>
+            <p>
+                In the early 20th century, the population of Melaka was approximately <strong>190,000</strong>. The ethnic demographic consisted of:
+                <ul style="list-style: none; padding-left: 10px;">
+                    <li><strong>• Malays:</strong> 52% (approx. 98,800)</li>
+                    <li><strong>• Chinese:</strong> 38% (approx. 72,200)</li>
+                    <li><strong>• Indians & Others:</strong> 10% (approx. 19,000)</li>
+                </ul>
+                This diversity served as the foundation of the multicultural society we see today.
+            </p>
+            <p>
+                On 20 February 1956, Tunku Abdul Rahman announced the date of Malaya's independence at Padang Pahlawan in Bandar Hilir, Melaka, forever cementing the city's role in the birth of the nation.
+            </p>
+        </div>
+    </div>
+
+    <section class="social-footer">
+        <div class="footer-box">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                 <a href="https://www.facebook.com/share/19MT2P22HC/"><i class="ri-facebook-fill"></i></a>
+                <a href="https://www.instagram.com/melakaexplorer_community?igsh=MWw3b2RtbzVwYnlteg=="><i class="ri-instagram-line"></i></a>
+                <a href="https://x.com/MelakaExplorer"><i class="ri-twitter-x-fill"></i></a>
+            </div>
+            <p style="font-size: 9pt; margin-top: 15px; color: #bbb;">Stay connected with the cultural heart of Melaka.</p>
+        </div>
+
+        <div class="footer-box">
+            <h4>Quick Link</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li><a href="faq.html" style="color: white; text-decoration: none;">> FAQ</a></li>
+            </ul>
+        </div>
+    </section>
+
+  <div class="copyright">
+            <p>
+                 Recommended: Latest Chrome, Firefox, or Edge |
+                 Resolution: 1280x720 or higher
+            </p>
+            <p class="last-updated">
+                 Last Updated: 13 January 2026
+            </p>
+        <p>
+        <p>&copy;  2026 MelakaExplorer. Copyright. All rights reserved.</p>
+    </p>
+
+</body>
+</html>
+
+
